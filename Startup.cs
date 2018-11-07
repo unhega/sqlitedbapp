@@ -31,14 +31,16 @@ namespace sqlitedbapp
         {
             var dbConnectionStr = $"Data Source={Configuration["SQLITE_DBNAME"] ?? "test.db"}";
             services.AddDbContext<SqliteDbContext>(options => options.UseSqlite(dbConnectionStr));
+            services.AddSingleton<CryproCompareService>();
           
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SqliteDbContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SqliteDbContext context, CryproCompareService compareService)
         {
             context.Database.EnsureCreated();
+            compareService.Process("https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,RUB");
 
             if (env.IsDevelopment())
             {
