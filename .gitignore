@@ -1,0 +1,6 @@
+.vscode/
+bin/
+obj/
+
+# Any sqlite db
+*.db
