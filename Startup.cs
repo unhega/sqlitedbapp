@@ -37,10 +37,10 @@ namespace sqlitedbapp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SqliteDbContext context, CryptoCompareService compareService)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SqliteDbContext dbContext, CryptoCompareService compareService)
         {
-            context.Database.EnsureCreated();
-            compareService.Process("https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,RUB");
+            dbContext.Database.EnsureCreated();
+            // compareService.Process("https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,RUB");
 
             if (env.IsDevelopment())
             {

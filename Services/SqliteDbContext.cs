@@ -12,7 +12,7 @@ namespace sqlitedbapp.Services
         public SqliteDbContext(DbContextOptions options):base(options){
 
         }
-        DbSet<Price> Prices {get; set;}
+        public DbSet<Price> Prices {get; set;}
 
         // protected override void OnModelCreating(ModelBuilder modelBuilder){
         //     modelBuilder.Entity<Price>()
