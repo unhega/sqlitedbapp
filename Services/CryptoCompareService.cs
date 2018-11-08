@@ -40,7 +40,11 @@ namespace sqlitedbapp.Services
                 var price = serializer.ReadObject(await responseStream) as Price;
                 using(var _scope = serviceProvider.CreateScope())
                 using(var dbContext = _scope.ServiceProvider.GetRequiredService<SqliteDbContext>())
+                {
                     await dbContext.AddAsync(price);
+                    await dbContext.SaveChangesAsync();
+                }
+                    
                 logger.LogInformation(price.ToString());
                 await Task.Delay(15000);
             }
