@@ -6,18 +6,20 @@ using sqlitedbapp.Models;
 using System;
 using System.Threading;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace sqlitedbapp.Services
 {
     public class CryptoCompareService: IDisposable
     {
-        DbContext dbContext;
+        IServiceProvider serviceProvider;
         ILogger logger;
         HttpClient client;
         CancellationTokenSource tokenSource;
-        public CryptoCompareService(SqliteDbContext dbContext, ILogger<CryptoCompareService> logger){
-            this.dbContext = dbContext;
+        public CryptoCompareService(IServiceProvider serviceProvider, ILogger<CryptoCompareService> logger){
+            this.serviceProvider = serviceProvider;
             this.logger = logger;
+            client = new HttpClient();
         }
 
         public void Dispose()
@@ -36,6 +38,7 @@ namespace sqlitedbapp.Services
                 var responseStream = client.GetStreamAsync(apiuri);
                 var serializer = new DataContractJsonSerializer(typeof(Price));
                 var price = serializer.ReadObject(await responseStream) as Price;
+                var dbContext = serviceProvider.GetRequiredService<SqliteDbContext>();
                 await dbContext.AddAsync(price);
                 logger.LogInformation(price.ToString());
                 await Task.Delay(15000);
