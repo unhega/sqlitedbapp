@@ -38,8 +38,9 @@ namespace sqlitedbapp.Services
                 var responseStream = client.GetStreamAsync(apiuri);
                 var serializer = new DataContractJsonSerializer(typeof(Price));
                 var price = serializer.ReadObject(await responseStream) as Price;
-                var dbContext = serviceProvider.GetRequiredService<SqliteDbContext>();
-                await dbContext.AddAsync(price);
+                using(var _scope = serviceProvider.CreateScope())
+                using(var dbContext = _scope.ServiceProvider.GetRequiredService<SqliteDbContext>())
+                    await dbContext.AddAsync(price);
                 logger.LogInformation(price.ToString());
                 await Task.Delay(15000);
             }
