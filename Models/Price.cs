@@ -1,3 +1,6 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace sqlitedbapp.Models
@@ -6,6 +9,8 @@ namespace sqlitedbapp.Models
     public class Price
     {
         // Настроить автоинкримент и ключевое поле
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id {get; set;}
         public long TimeStamp {get; set;}
         [DataMember]
@@ -15,6 +20,12 @@ namespace sqlitedbapp.Models
 
         public override string ToString(){
             return $"{Id}-{TimeStamp}-{USD}-{RUB}";
+        }
+
+        [OnDeserializing]
+        void OnDeserializing(StreamingContext c)
+        {
+            TimeStamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         }
     }
 }
