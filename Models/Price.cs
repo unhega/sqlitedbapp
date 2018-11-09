@@ -9,9 +9,11 @@ namespace sqlitedbapp.Models
     public class Price
     {
         // Настроить автоинкримент и ключевое поле
+        [DataMember]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id {get; set;}
+        [DataMember]
         public long TimeStamp {get; set;}
         [DataMember]
         public float USD {get; set;}
@@ -19,7 +21,7 @@ namespace sqlitedbapp.Models
         public float RUB {get; set;}
 
         public override string ToString(){
-            return $"{Id}-{TimeStamp}-{USD}-{RUB}";
+            return $"ID:\t{Id}|Time:\t{TimeStamp}|USD:\t{USD}|RUB:\t{RUB}";
         }
 
         [OnDeserializing]
