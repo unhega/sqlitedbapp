@@ -13,6 +13,7 @@ namespace sqlitedbapp.Services
 
         }
         public DbSet<Price> Prices {get; set;}
+        public DbSet<Session> Sessions {get; set;}
 
         // protected override void OnModelCreating(ModelBuilder modelBuilder){
         //     modelBuilder.Entity<Price>()
