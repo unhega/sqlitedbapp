@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +9,6 @@ using sqlitedbapp.Services;
 namespace sqlitedbapp.Controllers
 {
     [Route("api/[controller]")]
-    [Produces("applications/json")]
     [ApiController]
     public class PricesController:ControllerBase
     {
@@ -25,6 +26,22 @@ namespace sqlitedbapp.Controllers
                 return Ok(result);
             else
                 return NotFound(id);
+        }
+
+        [Route("all")]
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var result = await dbContext.Prices.ToListAsync() as List<Price>;
+            return Ok(result);
+        }
+
+        [Route("last")]
+        [HttpGet]
+        public async Task<IActionResult> GetLastAsync()
+        {
+            var result = await dbContext.Prices.TakeLast(5).ToListAsync() as List<Price>;
+            return Ok(result);
         }
     }
 }
