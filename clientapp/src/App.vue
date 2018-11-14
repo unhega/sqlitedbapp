@@ -9,6 +9,9 @@
       <b-col>
         <router-view/>
       </b-col>
+      <b-col cols="2">
+        Next column
+      </b-col>
     </b-row>
   </b-container>
 </template>

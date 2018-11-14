@@ -1,9 +1,9 @@
 <template>
 <b-navbar toggleable="md" type="dark" variant="info">
-  <b-navbar-brand :to="{name: 'Home'}">NavBar</b-navbar-brand>
+  <b-navbar-brand :to="{name: 'home'}">Home</b-navbar-brand>
     <b-navbar-nav>
-      <b-nav-item href="#">Action 1</b-nav-item>
-      <b-nav-item href="#">Action 2</b-nav-item>
+      <b-nav-item :to="{name: 'create'}">Create</b-nav-item>
+      <b-nav-item href="#">All</b-nav-item>
     </b-navbar-nav>
     <!-- <b-navbar-nav class="ml-auto">
       <b-nav-form>
