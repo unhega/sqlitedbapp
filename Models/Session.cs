@@ -14,7 +14,14 @@ namespace sqlitedbapp.Models
         public string Comment { get; set; }
         public DateTimeOffset BeginTime { get; set; }
         public DateTimeOffset EndTime { get; set; }
+        public SessionStatus Status { get; set; }
 
         public List<Price> Prices { get; set; }
+    }
+
+    public enum SessionStatus
+    {
+        Online,
+        Offline
     }
 }
