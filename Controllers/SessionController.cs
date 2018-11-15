@@ -5,41 +5,50 @@ using Microsoft.EntityFrameworkCore;
 using sqlitedbapp.Services;
 using sqlitedbapp.Models;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace sqlitedbapp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class SessionController:ControllerBase
+    public class SessionController : ControllerBase
     {
         SqliteDbContext dbContext;
-        public SessionController(SqliteDbContext dbContext){
+        ILogger logger;
+        public SessionController(SqliteDbContext dbContext, ILogger<SessionController> logger)
+        {
             this.dbContext = dbContext;
+            this.logger = logger;
         }
 
         [HttpGet("all")]
-        public async Task<IActionResult> GetAllAsync(){
+        public async Task<IActionResult> GetAllAsync()
+        {
             var result = await dbContext.Sessions.ToListAsync() as List<Session>;
             return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAsync(int id){
+        public async Task<IActionResult> GetAsync(int id)
+        {
             var result = await dbContext.Sessions.SingleAsync(e => e.Id == id) as Session;
-            if(result != null) return Ok(result);
+            if (result != null) return Ok(result);
             else return NotFound();
         }
 
         [HttpGet("online")]
-        public async Task<IActionResult> GetOnlineAsync(){
+        public async Task<IActionResult> GetOnlineAsync()
+        {
             var result = await dbContext.Sessions.Where(e => e.Status == SessionStatus.Online).ToListAsync() as List<Session>;
-            if(result.Count > 0) return Ok(result);
-            else return NotFound(); 
+            if (result.Count > 0) return Ok(result);
+            else return NotFound();
         }
 
-        // [HttpPost("start")]
-        // public async Task<IActionResult> StartSessionAsync(){
-        //     return Ok("Result");
-        // }
+        [HttpPost]
+        public async Task<IActionResult> CreateSessionAsync([FromBody] Session session)
+        {
+            logger.LogInformation("Got session data");
+            return Ok();
+        }
     }
 }

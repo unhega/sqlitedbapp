@@ -29,21 +29,29 @@
     </b-container>
 </template>
 <script>
+import SessionService from "@/api-services/session.service";
+
 export default {
-    data(){
-        return {
-            form: {
-                name: 'Session',
-                comment: 'Empty'
-            }
-        }
-    },
-    methods:{
-        onSubmit(evt){
-            evt.preventDefault();
-            alert(JSON.stringify(this.form))
-        }
+  data() {
+    return {
+      form: {
+        name: "Session",
+        comment: "Empty"
+      }
+    };
+  },
+  methods: {
+    onSubmit(evt) {
+      evt.preventDefault();
+      SessionService.create(JSON.stringify(this.form))
+        .then(response => {
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.log(error.response.data)
+        })
     }
-}
+  }
+};
 </script>
 
