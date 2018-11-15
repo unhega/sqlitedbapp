@@ -32,8 +32,21 @@ namespace sqlitedbapp
             var dbConnectionStr = $"Data Source={Configuration["SQLITE_DBNAME"] ?? "test.db"}";
             services.AddDbContext<SqliteDbContext>(options => options.UseSqlite(dbConnectionStr));
             services.AddSingleton<CryptoCompareService>();
+            //Для работы с кросдоменных вызовов
+            services.AddCors(o => o.AddPolicy("AllowSpecificOrigin", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                }));
           
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            // services.Configure<ApiBehaviorOptions>(options =>
+            // {
+            //     options.SuppressConsumesConstraintForFormFileParameters = true;
+            //     options.SuppressInferBindingSourcesForParameters = true;
+            //     options.SuppressModelStateInvalidFilter = true;
+            // });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +63,7 @@ namespace sqlitedbapp
             {
                 app.UseHsts();
             }
-
+            app.UseCors("AllowSpecificOrigin");
             app.UseMvc();
         }
     }

@@ -1,5 +1,9 @@
 import Axios from "axios";
 
+const inst = Axios.create({
+  headers: {'Content-Type': 'application/json'}
+})
+
 const RESOURCE_NAME = "/session";
 
 export default {
@@ -9,7 +13,7 @@ export default {
 
   get(id) {},
   create(data) {
-    return Axios.post(RESOURCE_NAME, data);
+    return inst.post(RESOURCE_NAME, data)
   },
 
   stop() {}

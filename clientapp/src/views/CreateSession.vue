@@ -43,6 +43,7 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
+      // JSON.stringify(this.form)
       SessionService.create(JSON.stringify(this.form))
         .then(response => {
           console.log(response.data)

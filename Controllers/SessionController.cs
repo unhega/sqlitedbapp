@@ -6,10 +6,12 @@ using sqlitedbapp.Services;
 using sqlitedbapp.Models;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Cors;
 
 namespace sqlitedbapp.Controllers
 {
     [ApiController]
+    // [EnableCors("AllowSpecificOrigin")]
     [Route("api/[controller]")]
     public class SessionController : ControllerBase
     {
