@@ -49,7 +49,11 @@ namespace sqlitedbapp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateSessionAsync([FromBody] Session session)
         {
-            logger.LogInformation("Got session data");
+            // logger.LogInformation("Got session data");
+            // В будущем нужно поставить какую-то логику помимо валидации по модели, если вообще нужно
+            // Полученная модель внутри себя имеет только Name и Comment, ее нужно донаполнить
+
+            await dbContext.Sessions.AddAsync(session);
             return Ok();
         }
     }
