@@ -1,14 +1,12 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using sqlitedbapp.Models;
 using System;
+using System.Linq;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using System.IO;
-using sqlitedbapp.Models;
 using System.Collections.Generic;
 
 namespace sqlitedbapp.Services
@@ -49,15 +47,32 @@ namespace sqlitedbapp.Services
 
         public void Process(Session session)
         {
+            session.Status = SessionStatus.Online;
             activeSessions[session] = ProcessAsync(session, TokenSource.Token);
+        }
+
+        public bool Stop(int id)
+        {
+            var session = activeSessions.Keys.Single(key => key.Id == id);
+            if(session != null)
+            {
+                session.Status = SessionStatus.Offline;
+                return true;
+            }
+            else return false;
+            
         }
 
         private async Task ProcessAsync(Session session, CancellationToken token)
         {
             while (!token.IsCancellationRequested)
             {
+                //Остановка сессии по времени
+                if(session.EndTime <= DateTimeOffset.UtcNow) break; 
+                //Остановка сессии по запросу
+                if(session.Status != SessionStatus.Online) break; 
                 var response = client.GetStringAsync(apiuri);
-                var price = JsonConvert.DeserializeObject<Price>(await response) as Price;
+                var price = JsonConvert.DeserializeObject<Price>(await response);
                 price.Session = session;
 
                 using (var _scope = serviceProvider.CreateScope())

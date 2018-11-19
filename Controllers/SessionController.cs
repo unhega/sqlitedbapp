@@ -7,6 +7,7 @@ using sqlitedbapp.Models;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Cors;
+using System;
 
 namespace sqlitedbapp.Controllers
 {
@@ -17,10 +18,12 @@ namespace sqlitedbapp.Controllers
     {
         SqliteDbContext dbContext;
         ILogger logger;
-        public SessionController(SqliteDbContext dbContext, ILogger<SessionController> logger)
+        CryptoCompareService service;
+        public SessionController(SqliteDbContext dbContext, ILogger<SessionController> logger, CryptoCompareService service)
         {
             this.dbContext = dbContext;
             this.logger = logger;
+            this.service = service;
         }
 
         [HttpGet("all")]
@@ -41,7 +44,7 @@ namespace sqlitedbapp.Controllers
         [HttpGet("online")]
         public async Task<IActionResult> GetOnlineAsync()
         {
-            var result = await dbContext.Sessions.Where(e => e.Status == SessionStatus.Online).ToListAsync() as List<Session>;
+            var result = await dbContext.Sessions.Where(e => e.Status == SessionStatus.Online).ToListAsync();
             if (result.Count > 0) return Ok(result);
             else return NotFound();
         }
@@ -51,10 +54,19 @@ namespace sqlitedbapp.Controllers
         {
             // logger.LogInformation("Got session data");
             // В будущем нужно поставить какую-то логику помимо валидации по модели, если вообще нужно
-            // Полученная модель внутри себя имеет только Name и Comment, ее нужно донаполнить
 
             await dbContext.Sessions.AddAsync(session);
+            await dbContext.SaveChangesAsync();
+            session.EndTime = DateTimeOffset.UtcNow.AddMinutes(5);
+            service.Process(session);
             return Ok();
+        }
+
+        [HttpGet("/stop/{id}")]
+        public async Task<IActionResult> StopSessionAsync(int id)
+        {
+            if(service.Stop(id)) return Ok();
+            else return NotFound();
         }
     }
 }

@@ -17,6 +17,8 @@ namespace sqlitedbapp.Models
         public SessionStatus Status { get; set; }
         public List<Price> Prices { get; set; }
 
+        
+
     }
 
     public enum SessionStatus

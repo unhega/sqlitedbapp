@@ -12,9 +12,11 @@ export default {
   getOnline() {},
 
   get(id) {},
-  create(data) {
-    return inst.post(RESOURCE_NAME, data)
+  create(session) {
+    return inst.post(RESOURCE_NAME, session)
   },
 
-  stop() {}
+  stop(id) {
+    return inst.get(`$RESOURCE_NAME/stop/$id`)
+  }
 };
