@@ -7,9 +7,17 @@ const inst = Axios.create({
 const RESOURCE_NAME = "/session";
 
 export default {
-  getAll() {},
+  getAll() {
+    return inst.get(`${RESOURCE_NAME}/all`)
+  },
 
-  getOnline() {},
+  getOnline() {
+    return inst.get(`${RESOURCE_NAME}/online`)
+  },
+
+  getLast() {
+    return inst.get(`${RESOURCE_NAME}/last`)
+  },
 
   get(id) {},
   create(session) {
@@ -17,6 +25,6 @@ export default {
   },
 
   stop(id) {
-    return inst.get(`$RESOURCE_NAME/stop/$id`)
+    return inst.get(`${RESOURCE_NAME}/stop/${id}`)
   }
 };

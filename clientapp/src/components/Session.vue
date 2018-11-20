@@ -3,11 +3,11 @@
         <b-row>
             <b-col>
                 <b-row>
-                    <b-col>Name</b-col>
-                    <b-col>Date</b-col>
+                    <b-col>{{session.name}}</b-col>
+                    <b-col>{{session.begintime}}</b-col>
                 </b-row>
                 <b-row>
-                    <b-col>Comment</b-col>
+                    <b-col>{{session.comment}}</b-col>
                     
                 </b-row>
             </b-col>
@@ -19,7 +19,7 @@
 <script>
 export default {
     name: "Session",
-    props:['Name', 'Date', 'Comment', 'ImagePath']
+    props:['session']
 }
 </script>
 

@@ -25,6 +25,11 @@ export default new Router({
       path: '/create',
       name: 'create',
       component: () => import('@/views/CreateSession')
+    },
+    {
+      path: '/all',
+      name: 'all',
+      component: () => import('@/views/AllSessions')
     }
   ]
 })

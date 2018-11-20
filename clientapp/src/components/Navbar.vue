@@ -3,7 +3,7 @@
   <b-navbar-brand :to="{name: 'home'}">Home</b-navbar-brand>
     <b-navbar-nav>
       <b-nav-item :to="{name: 'create'}">Create</b-nav-item>
-      <b-nav-item href="#">All</b-nav-item>
+      <b-nav-item :to="{name: 'all'}">All</b-nav-item>
     </b-navbar-nav>
     <!-- <b-navbar-nav class="ml-auto">
       <b-nav-form>
