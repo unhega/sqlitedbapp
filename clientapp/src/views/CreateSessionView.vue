@@ -23,13 +23,11 @@
                 <!-- <b-col cols='*'><b-button type="reset">Reset</b-button></b-col> -->
                 <b-col cols='*'><b-button type="submit">Start</b-button></b-col>   
             </b-form-row>
-            
-                      
         </b-form>
     </b-container>
 </template>
 <script>
-import SessionService from "@/api-services/session.service";
+import SessionService from "@/api-services/mock-session.service";
 
 export default {
   data() {

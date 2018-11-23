@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
 
 Vue.use(Router)
 
@@ -11,7 +10,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: () => import('@/views/HomeView')
     },
     {
       path: '/about',
@@ -24,12 +23,17 @@ export default new Router({
     {
       path: '/create',
       name: 'create',
-      component: () => import('@/views/CreateSession')
+      component: () => import('@/views/CreateSessionView')
     },
     {
       path: '/all',
       name: 'all',
-      component: () => import('@/views/AllSessions')
+      component: () => import('@/views/AllSessionsView')
+    },
+    {
+      path: '/session/:id',
+      name: 'session',
+      component: () => import('@/views/SessionView')
     }
   ]
 })

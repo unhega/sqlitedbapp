@@ -9,8 +9,8 @@
       <b-col>
         <router-view/>
       </b-col>
-      <b-col cols="2">
-        Next column
+      <b-col md="2" lg="3">
+        Last used sessions
       </b-col>
     </b-row>
   </b-container>
@@ -28,5 +28,11 @@ export default {
 </script>
 
 <style>
-
+@media (max-width: 992px) {
+  .container {
+    width: 100%;
+    max-width: none;
+  }
+}
 </style>
+
