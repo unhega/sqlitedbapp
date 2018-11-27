@@ -16,7 +16,7 @@
               <b-col>{{row.item.comment}}</b-col>
             </b-row>
           </b-col>
-          <b-col lg="1" md="2">
+          <b-col lg="*" md="2">
             <b-button :to="{name: 'session', params: {id: row.item.id}}">Detail</b-button>
           </b-col>
         </b-row>

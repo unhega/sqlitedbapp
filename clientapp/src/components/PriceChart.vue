@@ -1,7 +1,6 @@
 <template>
   <b-container id="price-chart">
-    <highcharts :options="chartOptions"></highcharts>
-    <b-button @click="chartOptions.series.data.push({y: 10})"></b-button>
+    <highcharts :options="chartOptions" :updateArgs="updateArgs"></highcharts>
   </b-container>
 </template>
 
@@ -11,37 +10,45 @@
 export default {
   data() {
     return {
-      title: "title",
-      points: [10, 0, 8, 2, 6, 4, 5, 5],
-      chartType: "Spline",
-      seriesColor: "#6fcd98",
-      colorInputIsSupported: null,
-      animationDuration: 1000,
-      updateArgs: [true, true, { duration: 1000 }],
+      title: "Price chart",
+      data: this.dataset,
+      updateArgs: [true, true, {duration: 0}],
       chartOptions: {
         chart: {
           type: "line"
         },
         title: {
-          text: "Sin chart"
+          text: "Price chart"
         },
-        series: [
-          {
-            name: '123',
-            data: [{y: 1}, {y: 2}, {y: 3}, {y: 2}, {y: 4}, {y: 7}, {y: 2}, {y: 5} ],
-            // color: "#6fcd98",
-            lineColor: this.$root.Highcharts.getOptions().colors[1],
-            // color: Highcharts.getOptions().colors[2],
-            marker: {
-              enabled: false
-            },  
-            threshold: null,
-            fillOpacity: 1
-          }
-        ]
+        series: []
+          // [
+          // {
+            
+          //   name: this.data.title,
+          //   data: this.data.data,
+          //   // color: "#6fcd98",
+          //   lineColor: this.$root.Highcharts.getOptions().colors[1],
+          //   // color: Highcharts.getOptions().colors[2],
+          //   marker: {
+          //     enabled: false
+          //   },  
+          //   threshold: null,
+          //   fillOpacity: 1
+          // }
+        // ]
       }
     };
   },
-  props: ["dataset"]
+  props: ["dataset"],
+  // watch: {
+  //   dataset(newValue) {
+  //     this.chartOptions.series[0].data = newValue;
+  //   }
+  // }
+  mounted() {
+    for(let item in this.dataset) {
+      this.data.push(item)
+    }
+  }
 };
 </script>

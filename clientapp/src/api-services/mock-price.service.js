@@ -1,8 +1,8 @@
 const usd = [
-    { id: 1, sessionId: 0, timestamp: Date.now(), value: 10 },
-    { id: 2, sessionId: 0, timestamp: Date.now(), value: 20 },
-    { id: 3, sessionId: 0, timestamp: Date.now(), value: 30 },
-    { id: 4, sessionId: 0, timestamp: Date.now(), value: 15 }
+    { id: 1, sessionId: 1, timestamp: Date.UTC(), value: 10 },
+    { id: 2, sessionId: 1, timestamp: Date.UTC(), value: 20 },
+    { id: 3, sessionId: 1, timestamp: Date.UTC(), value: 30 },
+    { id: 4, sessionId: 1, timestamp: Date.UTC(), value: 15 }
   ]
 
 export default {
