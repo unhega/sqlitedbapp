@@ -9,7 +9,7 @@
         <b-form-textarea id="CommentTextarea" :rows="3" :max-rows="6" v-model="form.comment"/>
       </b-form-group>
       <b-form-group label="Check concurencies">
-        <b-checkbox-group v-model="form.currencies" :options="currenciesVariants" state="null"></b-checkbox-group>
+        <b-checkbox-group v-model="form.concurencies" :options="currenciesVariants" state="null"></b-checkbox-group>
       </b-form-group>
 
       <b-form-row>
@@ -33,7 +33,7 @@ export default {
       form: {
         name: "Session",
         comment: "Empty",
-        currencies: []
+        concurencies: []
       },
       currenciesVariants: [
         { text: "USD", value: "USD" },
