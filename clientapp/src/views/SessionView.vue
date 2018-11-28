@@ -6,9 +6,14 @@
       <b-col cols="1">Date:</b-col>
       <b-col>{{session.begintime}}</b-col>
       <b-col>
-        Status:
-        <span>{{session.status}}</span>
-        <b-button @click="extendData">Add</b-button>
+        <template v-if="session.status == 1">
+          <div style="float: left">Online</div>
+          <div class="status green"></div>
+        </template>
+        <template v-else>
+          <div style="float: left">Offline</div>
+          <div class="status red"></div>
+        </template>
       </b-col>
     </b-row>
     <b-row>
@@ -40,10 +45,12 @@ export default {
     return {
       session: null,
       plotRendered: false,
-      dataset: [{
-        name: 'Session name',
-        data: []
-      }]
+      dataset: [
+        {
+          name: "Session name",
+          data: []
+        }
+      ]
     };
   },
   mounted() {
@@ -62,12 +69,34 @@ export default {
     });
     this.plotRendered = true;
   },
-  methods:{
+  methods: {
     extendDataset(value) {
       this.dataset.data.push(value);
     }
   }
 };
 </script>
+<style scoped>
+.status {
+  float: left;
+  width: 15px;
+  height: 15px;
+  margin: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.green {
+  background: #00ff00;
+}
+
+.red {
+  background: #ff0000;
+}
+
+.wine {
+  background: #ae163e;
+}
+</style>
+
 
 
