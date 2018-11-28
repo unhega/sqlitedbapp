@@ -1,8 +1,5 @@
 <template>
-  <b-table striped hover 
-  :items="items"
-  :fields="fields"
-  @row-clicked="rowToggleDetails">
+  <b-table striped hover :items="items" :fields="fields" @row-clicked="rowToggleDetails">
     <template slot="row-details" slot-scope="row">
       <b-card>
         <b-row>
@@ -26,32 +23,34 @@
 </template>
 
 <script>
-import SessionService from '@/api-services/mock-session.service'
+import SessionService from "@/api-services/session.service";
 
 export default {
   name: "AllSessions",
-  data () {
+  data() {
     return {
       items: [],
       fields: [
-        {key: 'name', sortable: true},
-        {key: 'comment'},
-        {key: 'begintime', label: "Begin time", sortable: true},
-        {key: 'endtime', label: "End time"}]
-    }
+        { key: "name", sortable: true },
+        { key: "comment" },
+        { key: "begintime", label: "Begin time", sortable: true },
+        { key: "endtime", label: "End time" }
+      ]
+    };
   },
   methods: {
-      rowToggleDetails(row) {
-          row._showDetails = !row._showDetails;
-          
-      }
+    rowToggleDetails(row) {
+      row._showDetails = !row._showDetails;
+    }
   },
   mounted() {
-    SessionService.getAll().then((response)=>{
-      this.items = response.data;
-    }).catch((error) => {
-      console.log(error.response.data);
-    });
+    SessionService.getAll()
+      .then(response => {
+        this.items = response.data;
+      })
+      .catch(error => {
+        console.log(error.response.data);
+      });
   }
-}
+};
 </script>

@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import SessionService from "@/api-services/mock-session.service";
-import PriceService from "@/api-services/mock-price.service";
+import SessionService from "@/api-services/session.service";
+import PriceService from "@/api-services/price.service";
 import PriceChart from "@/components/PriceChart";
 
 export default {
@@ -91,10 +91,6 @@ export default {
 
 .red {
   background: #ff0000;
-}
-
-.wine {
-  background: #ae163e;
 }
 </style>
 

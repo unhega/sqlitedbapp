@@ -55,17 +55,17 @@ namespace sqlitedbapp.Controllers
             // logger.LogInformation("Got session data");
             // В будущем нужно поставить какую-то логику помимо валидации по модели, если вообще нужно
 
-            await dbContext.Sessions.AddAsync(session);
-            await dbContext.SaveChangesAsync();
-            session.EndTime = DateTimeOffset.UtcNow.AddMinutes(5);
-            service.Process(session);
+            // await dbContext.Sessions.AddAsync(session);
+            // await dbContext.SaveChangesAsync();
+            // session.EndTime = DateTimeOffset.UtcNow.AddMinutes(5);
+            // service.Process(session);
             return Ok();
         }
 
         [HttpGet("/stop/{id}")]
         public async Task<IActionResult> StopSessionAsync(int id)
         {
-            if(service.Stop(id)) return Ok();
+            if (service.Stop(id)) return Ok();
             else return NotFound();
         }
     }

@@ -32,14 +32,14 @@ namespace sqlitedbapp
             var dbConnectionStr = $"Data Source={Configuration["SQLITE_DBNAME"] ?? "test.db"}";
             services.AddDbContext<SqliteDbContext>(options => options.UseSqlite(dbConnectionStr));
             services.AddSingleton<CryptoCompareService>();
-            //Для работы с кросдоменных вызовов
+            //Для работы кроcсдоменных вызовов
             services.AddCors(o => o.AddPolicy("AllowSpecificOrigin", builder =>
                 {
                     builder.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader();
                 }));
-          
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             // services.Configure<ApiBehaviorOptions>(options =>
             // {
