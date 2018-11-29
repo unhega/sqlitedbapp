@@ -21,10 +21,10 @@ namespace sqlitedbapp.Services
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Session>()
-                .Property(e => e.Concurencies)
+                .Property(e => e.Currencies)
                 .HasConversion(
                     v => JsonConvert.SerializeObject(v),
-                    v => JsonConvert.DeserializeObject<List<Concurency>>(v)
+                    v => JsonConvert.DeserializeObject<List<Currency>>(v)
                 );
         }
 

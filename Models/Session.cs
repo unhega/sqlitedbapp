@@ -18,7 +18,7 @@ namespace sqlitedbapp.Models
         public long EndTime { get; set; }
         public SessionStatus Status { get; set; }
         public List<Price> Prices { get; set; }
-        public List<Concurency> Concurencies { get; set; }
+        public List<Currency> Currencies { get; set; }
 
 
 
@@ -31,7 +31,7 @@ namespace sqlitedbapp.Models
     }
 
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum Concurency
+    public enum Currency
     {
         USD,
         RUB

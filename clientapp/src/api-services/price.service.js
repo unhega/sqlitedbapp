@@ -11,8 +11,5 @@ export default {
     return inst.get(`${RESOURCE_NAME}/all`);
   },
 
-  get(id) {},
-  create(session) {
-    return inst.post(RESOURCE_NAME, session);
-  }
+  get(id) {}
 };

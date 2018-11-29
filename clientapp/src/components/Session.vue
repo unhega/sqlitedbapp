@@ -9,7 +9,7 @@
           <b-col @mouseover="timeflag = true" @mouseout="timeflag = false">{{BeginDate}}</b-col>
         </b-row>
         <b-row>
-          <b-col>{{session.concurencies.join(', ')}}</b-col>
+          <b-col>{{session.currencies.join(', ')}}</b-col>
         </b-row>
       </b-col>
       <b-col>Place for image</b-col>

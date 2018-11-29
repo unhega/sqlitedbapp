@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace sqlitedbapp.Models
 {
-    [JsonObject]
+    // [JsonObject]
     public class Price
     {
 
@@ -17,12 +17,12 @@ namespace sqlitedbapp.Models
         [ForeignKey("SessionId")]
         public Session Session { get; set; }
         public long TimeStamp { get; set; }
-        public float USD { get; set; }
-        public float RUB { get; set; }
+        public string Currency { get; set; }
+        public float Value { get; set; }
 
         public override string ToString()
         {
-            return $"ID:\t{Id}|Time:\t{TimeStamp}|USD:\t{USD}|RUB:\t{RUB}";
+            return $"ID:\t{Id}|Time:\t{TimeStamp}|Currency:\t{Currency}|Value:\t{Value}";
         }
 
         [OnDeserializing]
