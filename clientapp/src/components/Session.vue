@@ -28,7 +28,7 @@ export default {
   props: ["session"],
   computed: {
     BeginDate: function() {
-      let date = new Date(1543463337 * 1000);
+      let date = new Date(this.session.beginTime * 1000);
       if (!this.timeflag) return date.toLocaleDateString();
       else return date.toLocaleTimeString();
     }
