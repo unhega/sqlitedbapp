@@ -54,9 +54,9 @@ namespace sqlitedbapp.Controllers
         {
             // logger.LogInformation("Got session data");
             // В будущем нужно поставить какую-то логику помимо валидации по модели, если вообще нужно
-
-            // await dbContext.Sessions.AddAsync(session);
-            // await dbContext.SaveChangesAsync();
+            session.BeginTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            await dbContext.Sessions.AddAsync(session);
+            await dbContext.SaveChangesAsync();
             // session.EndTime = DateTimeOffset.UtcNow.AddMinutes(5);
             // service.Process(session);
             return Ok();

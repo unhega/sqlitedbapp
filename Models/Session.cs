@@ -14,8 +14,8 @@ namespace sqlitedbapp.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Comment { get; set; }
-        public DateTimeOffset BeginTime { get; set; }
-        public DateTimeOffset EndTime { get; set; }
+        public long BeginTime { get; set; }
+        public long EndTime { get; set; }
         public SessionStatus Status { get; set; }
         public List<Price> Prices { get; set; }
         public List<Concurency> Concurencies { get; set; }

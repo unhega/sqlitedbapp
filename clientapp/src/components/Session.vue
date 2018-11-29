@@ -9,7 +9,7 @@
           <b-col @mouseover="timeflag = true" @mouseout="timeflag = false">{{BeginDate}}</b-col>
         </b-row>
         <b-row>
-          <b-col>{{session.currencies.join(', ')}}</b-col>
+          <b-col>{{session.concurencies.join(', ')}}</b-col>
         </b-row>
       </b-col>
       <b-col>Place for image</b-col>
@@ -19,21 +19,20 @@
 
 <script>
 export default {
-    data() {
-        return {
-          timeflag: false
-        }
-    },
-    name: "Session",
-    props:['session'],
-    computed:{
-        BeginDate: function () {
-          if(!this.timeflag)
-            return new Date(this.session.begintime).toLocaleDateString();
-          else
-            return new Date(this.session.begintime).toLocaleTimeString();
-        }
+  data() {
+    return {
+      timeflag: false
+    };
+  },
+  name: "Session",
+  props: ["session"],
+  computed: {
+    BeginDate: function() {
+      let date = new Date(1543463337 * 1000);
+      if (!this.timeflag) return date.toLocaleDateString();
+      else return date.toLocaleTimeString();
     }
-}
+  }
+};
 </script>
 

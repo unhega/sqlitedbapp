@@ -18,15 +18,18 @@ namespace sqlitedbapp.Services
         ILogger logger;
         HttpClient client;
         CancellationTokenSource tokenSource;
-        CancellationTokenSource TokenSource { get 
+        CancellationTokenSource TokenSource
         {
-            if(tokenSource!=null) return tokenSource;
-            else 
+            get
             {
-                tokenSource = new CancellationTokenSource();
-                return tokenSource;
-            } 
-        } }
+                if (tokenSource != null) return tokenSource;
+                else
+                {
+                    tokenSource = new CancellationTokenSource();
+                    return tokenSource;
+                }
+            }
+        }
 
         string apiuri = "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,RUB";
         public CryptoCompareService(IServiceProvider serviceProvider, ILogger<CryptoCompareService> logger)
@@ -37,7 +40,7 @@ namespace sqlitedbapp.Services
             client = new HttpClient();
         }
 
-        
+
 
         public void Dispose()
         {
@@ -54,13 +57,13 @@ namespace sqlitedbapp.Services
         public bool Stop(int id)
         {
             var session = activeSessions.Keys.Single(key => key.Id == id);
-            if(session != null)
+            if (session != null)
             {
                 session.Status = SessionStatus.Offline;
                 return true;
             }
             else return false;
-            
+
         }
 
         private async Task ProcessAsync(Session session, CancellationToken token)
@@ -68,9 +71,9 @@ namespace sqlitedbapp.Services
             while (!token.IsCancellationRequested)
             {
                 //Остановка сессии по времени
-                if(session.EndTime <= DateTimeOffset.UtcNow) break; 
+                if (session.EndTime <= DateTimeOffset.UtcNow.ToUnixTimeSeconds()) break;
                 //Остановка сессии по запросу
-                if(session.Status != SessionStatus.Online) break; 
+                if (session.Status != SessionStatus.Online) break;
                 var response = client.GetStringAsync(apiuri);
                 var price = JsonConvert.DeserializeObject<Price>(await response);
                 price.Session = session;
@@ -87,13 +90,13 @@ namespace sqlitedbapp.Services
             }
 
             session.Status = SessionStatus.Offline;
-            session.EndTime = DateTimeOffset.Now.ToUniversalTime();
+            session.EndTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             using (var _scope = serviceProvider.CreateScope())
-                using (var dbContext = _scope.ServiceProvider.GetRequiredService<SqliteDbContext>())
-                {
-                    dbContext.Update(session);
-                    await dbContext.SaveChangesAsync();
-                }
+            using (var dbContext = _scope.ServiceProvider.GetRequiredService<SqliteDbContext>())
+            {
+                dbContext.Update(session);
+                await dbContext.SaveChangesAsync();
+            }
 
         }
     }
